@@ -11,6 +11,7 @@ export interface Transacao {
     taxa: number;
     dataTransacao: Date;
     ativos?: Ativos;
+    custo: number;
   }
   
   export enum TipoTransacao {

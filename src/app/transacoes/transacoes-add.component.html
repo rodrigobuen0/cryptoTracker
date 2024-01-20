@@ -1,0 +1,76 @@
+<!-- transacoes-add.component.html -->
+
+<div class="card">
+  <h1>Nova Transação</h1>
+  <div class="card-body">
+    <div class="table-responsive">
+      <form [formGroup]="transacoesForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="control-label">Moeda</label>
+          <select
+            name="moeda"
+            formControlName="moeda"
+            class="form-control"
+          ></select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label class="control-label">Preço da Moeda</label>
+          <input
+            type="text"
+            name="precoMoeda"
+            placeholder="Preço da Moeda"
+            formControlName="precoMoeda"
+            class="form-control"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label class="control-label">Data do Aporte</label>
+          <input
+            type="text"
+            name="dataAporte"
+            placeholder="Data do Aporte"
+            formControlName="dataAporte"
+            class="form-control"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label class="control-label">Valor Aportado</label>
+          <input
+            type="text"
+            name="valorAportado"
+            placeholder="Valor Aportado"
+            formControlName="valorAportado"
+            class="form-control"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label class="control-label">Taxa da Corretora</label>
+          <input
+            type="text"
+            name="TaxaCorretora"
+            placeholder="Taxa da Corretora"
+            formControlName="TaxaCorretora"
+            class="form-control"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label class="control-label">Quantidade de Moedas</label>
+          <input
+            type="text"
+            name="QtdMoedas"
+            placeholder="Quantidade de Moedas"
+            formControlName="QtdMoedas"
+            class="form-control"
+          />
+        </div>
+        <br />
+        <input type="submit" value="Enviar" />
+      </form>
+    </div>
+  </div>
+</div>

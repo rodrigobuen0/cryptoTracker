@@ -7,4 +7,5 @@ export class Portfolio {
   quantidadeTotal?: number;
   valorMedio?: number;
   ativoCripto?: Ativos;
+  custoTotal?: number;
 }

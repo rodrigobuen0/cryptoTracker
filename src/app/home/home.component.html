@@ -1,8 +1,11 @@
+<div class="text-end">
+    <button (click)="modalAddTransacao()" class="btn btn-success">Nova Compra</button>
+
+</div>
 <div class="card mt-4">
     <div class="card-body">
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <div class="table-responsive">
-
         <table *ngIf="portfolio" class="table table-striped">
             <thead>
                 <tr>
@@ -13,6 +16,9 @@
                         Quantidade Total
                     </th>
                     <th scope="col">
+                        Custo Total
+                    </th>
+                    <th scope="col">
                         Preço Médio
                     </th>
                 </tr>
@@ -21,6 +27,7 @@
                 <tr *ngFor="let ativo of portfolio" (click)="abrirTransacoes(ativo.ativoCripto?.assetID || 0)">
                     <td>{{ativo.ativoCripto?.simbolo}} - {{ativo.ativoCripto?.nomeAtivo}}</td>
                     <td>{{ativo.quantidadeTotal}}</td>
+                    <td>{{ativo.custoTotal}}</td>
                     <td>{{ativo.valorMedio}}</td>
                 </tr>
             </tbody>
