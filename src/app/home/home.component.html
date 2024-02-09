@@ -16,22 +16,53 @@
                         Quantidade Total
                     </th>
                     <th scope="col">
+                        Saldo
+                    </th>
+                    <th scope="col">
                         Custo Total
                     </th>
                     <th scope="col">
                         Preço Médio
                     </th>
+                    <th scope="col">
+                        Preço Atual
+                    </th>
+                    <th scope="col">
+                        Total
+                    </th>
+                    <th scope="col">
+                        Total %
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ativo of portfolio" (click)="abrirTransacoes(ativo.ativoCripto?.assetID || 0)">
+                <tr *ngFor="let ativo of portfolio" (click)="abrirTransacoes(ativo.ativoCripto?.assetID!)">
                     <td>{{ativo.ativoCripto?.simbolo}} - {{ativo.ativoCripto?.nomeAtivo}}</td>
                     <td>{{ativo.quantidadeTotal}}</td>
-                    <td>{{ativo.custoTotal}}</td>
-                    <td>{{ativo.valorMedio}}</td>
+                    <td>{{(ativo.precoAtual! * ativo.quantidadeTotal!) | currency}}</td>
+                    <td>{{ativo.custoTotal | currency }}</td>
+                    <td>{{ativo.valorMedio | currency }}</td>
+                    <td>{{ativo.precoAtual | currency}}</td>
+                    <td [ngClass]="{'verde': (ativo.precoAtual! - ativo.valorMedio!) >= 0, 'vermelho' : (ativo.precoAtual! - ativo.valorMedio!) < 0}">
+                        {{((ativo.precoAtual! - ativo.valorMedio!) * ativo.quantidadeTotal!) | currency}}
+                    </td>
+                    
+                    <td [ngClass]="{'verde': ((ativo.precoAtual! - ativo.valorMedio!) / ativo.valorMedio! * 100) >= 0, 'vermelho': ((ativo.precoAtual! - ativo.valorMedio!) / ativo.valorMedio! * 100) < 0}">
+                        {{((ativo.precoAtual! - ativo.valorMedio!) / ativo.valorMedio! * 100) | number:'1.2-2'}}%
+                    </td>
+                    
                 </tr>
             </tbody>
         </table>
         </div>
     </div>
 </div>
+<style>
+    .verde {
+        color: green;
+    }
+
+    .vermelho {
+        color: red;
+    }
+</style>

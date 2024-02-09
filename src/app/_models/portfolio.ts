@@ -8,4 +8,5 @@ export class Portfolio {
   valorMedio?: number;
   ativoCripto?: Ativos;
   custoTotal?: number;
+  precoAtual?: number | null;
 }
