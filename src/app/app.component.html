@@ -1,12 +1,67 @@
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark px-3 mb-3" *ngIf="user">
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark px-3 mb-3" *ngIf="user">
   <div class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
       <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
   </div>
-</nav>
+</nav> -->
+<!-- 
+    - #HEADER
+  -->
+
+  <header class="header" *ngIf="user" [ngClass]="status ? 'active' : ''">
+    <div class="container">
+
+      <h1>
+        <a class="logo" routerLink="/" routerLinkActive="active">CryptoTracker</a>
+      </h1>
+
+      <button class="menu-toggle-btn icon-box" data-menu-toggle-btn aria-label="Toggle Menu" (click)="addToggle()">
+        <span class="material-symbols-rounded  icon">menu</span>
+      </button>
+
+      <nav class="navbar">
+        <div class="container">
+
+          <ul class="navbar-list">
+
+            <li>
+              <a routerLink="/" routerLinkActive="active" class="navbar-link active icon-box">
+                <span class="material-symbols-rounded  icon">grid_view</span>
+
+                <span>Meus Ativos</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <ul class="user-action-list">
+
+
+            <li>
+
+              <button class="btn btn-primary" (click)="logout()">
+                <span class="material-symbols-rounded  icon">logout</span>
+                Logout
+              </button>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+    <article class="container article">
+      
+      <router-outlet></router-outlet>
+    </article>
+  </main>
 
 <!-- main app container -->
-<div class="container">
+<!-- <div class="container">
   <router-outlet></router-outlet>
-</div>
+</div> -->

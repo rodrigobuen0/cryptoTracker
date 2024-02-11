@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
       first(),
       concatMap((prices) => {
         this.prices = prices;
-        console.log(prices);
         return this.portfolioService.getAll();
       }),
       first()

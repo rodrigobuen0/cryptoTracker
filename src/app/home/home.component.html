@@ -2,11 +2,10 @@
     <button (click)="modalAddTransacao()" class="btn btn-success">Nova Compra</button>
 
 </div>
-<div class="card mt-4">
-    <div class="card-body">
+<div class="mt-4">
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <div class="table-responsive">
-        <table *ngIf="portfolio" class="table table-striped">
+        <div class="table-responsive tableStyle">
+        <table *ngIf="portfolio" class="table table-dark">
             <thead>
                 <tr>
                     <th scope="col">
@@ -55,7 +54,6 @@
             </tbody>
         </table>
         </div>
-    </div>
 </div>
 <style>
     .verde {
