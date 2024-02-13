@@ -7,11 +7,23 @@
       <form [formGroup]="transacoesForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label class="control-label">Moeda</label>
-          <select
-            name="moeda"
-            formControlName="moeda"
-            class="form-control"
-          ></select>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="moeda"
+              placeholder="Digite para pesquisar a moeda"
+              class="form-control"
+              (input)="searchMoedas($event)"
+              (click)="searchMoedas($event)"
+            />
+            <div class="moeda-options" *ngIf="moedas.length > 0">
+              <ul>
+                <li *ngFor="let moeda of moedas" (click)="selectMoeda(moeda)">
+                  {{ moeda.name }} - Preço: {{ moeda.price }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <br />
         <div class="form-group">

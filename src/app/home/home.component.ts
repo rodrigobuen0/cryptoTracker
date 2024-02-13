@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   portfolio?: Portfolio[];
   modalRef: BsModalRef | undefined;
   prices?: AssetsData[];
+  vlrAporte?: number = 0;
+  vlrSaldo?: number = 0;
 
   constructor(
     private portfolioService: PortfolioService,
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
           item.precoAtual = precoAtual;
         }
       });
+      this.calcularTotais();
     });
   }
   abrirTransacoes(ativoId: number) {
@@ -52,5 +55,10 @@ export class HomeComponent implements OnInit {
   getPriceById(id: number): number {
     const ativo = this.prices?.find(a => a.id === id);
     return ativo ? ativo.quote.usd.price : 0;
+  }
+  calcularTotais() {
+    // Soma os valores de vlrAporte e vlrSaldo de todos os itens do portfólio
+    this.vlrAporte = this.portfolio!.reduce((total, item) => total + (item.custoTotal || 0), 0);
+    this.vlrSaldo = this.portfolio!.reduce((total, item) => total + (item.precoAtual! * item.quantidadeTotal! || 0), 0);
   }
 }

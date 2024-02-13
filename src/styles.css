@@ -179,9 +179,10 @@ body {
 .card {
   background: var(--black_01);
   position: relative;
-  padding: 24px;
+  padding: 14px 18px 10px 18px;
   border-radius: var(--radius-6);
   box-shadow: var(--shadow-2);
+  margin: auto;
 }
 
 .card-menu-btn {
@@ -485,7 +486,7 @@ body {
 }
 
 .card-title {
-  color: var(--onyx);
+  color: var(--white);
   font-weight: var(--fw-600);
   margin-bottom: 5px;
 }
@@ -594,10 +595,9 @@ body {
 }
 
 .card-price {
-  color: var(--onyx);
+  color: var(--white);
   font-size: var(--fs-2);
   font-weight: var(--fw-600);
-  margin-bottom: 12px;
 }
 
 .revenue-card .card-text {
@@ -639,132 +639,6 @@ body {
   font-size: var(--fs-9);
 }
 
-/*-----------------------------------*\
-    #PROJECTS
-  \*-----------------------------------*/
-
-.project-list {
-  display: grid;
-  gap: 25px;
-}
-
-.project-card .card-date {
-  color: var(--cool-gray);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-500);
-  margin-bottom: 20px;
-}
-
-.project-card .card-title {
-  color: var(--onyx);
-  font-size: var(--fs-4);
-  margin-bottom: 8px;
-}
-
-.project-card .card-title > a {
-  color: inherit;
-  transition: var(--transition);
-}
-
-.project-card .card-title > a:is(:hover, :focus) {
-  color: var(--blue-ryb);
-}
-
-.project-card .card-badge {
-  margin-bottom: 20px;
-}
-
-.project-card .card-text {
-  color: var(--cool-gray);
-  font-size: var(--fs-7);
-  line-height: 1.7;
-  margin-bottom: 15px;
-}
-
-.project-card .card-progress-box {
-  margin-bottom: 15px;
-}
-
-.project-card .progress-title {
-  font-weight: var(--fw-600);
-}
-
-.project-card .progress-data {
-  color: var(--onyx);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-600);
-}
-
-.project-card .progress-bar {
-  margin-top: 10px;
-}
-
-.card-avatar-list {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.card-avatar-item > a {
-  border: 2px solid var(--black_01);
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.card-avatar-item:not(:first-child) {
-  margin-left: -15px;
-}
-
-/*-----------------------------------*\
-    #TASKS
-  \*-----------------------------------*/
-
-.tasks-item:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.tasks .task-card {
-  display: grid;
-  gap: 15px;
-}
-
-.tasks .card-input {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.tasks .card-input > input {
-  margin-top: 2px;
-  accent-color: var(--blue-ryb);
-}
-
-.tasks .card-input > input:checked {
-  filter: drop-shadow(0 0 2px var(--blue-ryb));
-}
-
-.tasks .task-label {
-  color: var(--davys-gray);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-600);
-  line-height: 1.5;
-}
-
-.tasks .card-meta-list {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 15px;
-}
-
-.tasks .meta-box {
-  color: var(--davys-gray);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-600);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
 
 @keyframes rotate {
   0% {
@@ -774,51 +648,6 @@ body {
   100% {
     transform: rotate(1turn);
   }
-}
-
-/*-----------------------------------*\
-    #FOOTER
-  \*-----------------------------------*/
-
-.footer {
-  background: var(--black_01);
-  padding-block: 25px;
-}
-
-.footer-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
-
-.footer-link,
-.copyright {
-  color: var(--davys-gray);
-  font-size: var(--fs-6);
-  line-height: 1.7;
-}
-
-.footer-link,
-.copyright-link {
-  display: inline-block;
-  transition: var(--transition);
-}
-
-:is(.footer-link, .copyright-link):is(:hover, :focus) {
-  color: var(--blue-ryb);
-}
-
-.footer-item:not(:last-child)::after {
-  content: "-";
-  color: hsl(0, 0%, 80%);
-  font-weight: var(--fw-600);
-  margin-inline: 5px;
-}
-
-.copyright-link {
-  color: inherit;
 }
 
 /*-----------------------------------*\
@@ -1031,7 +860,7 @@ body {
      */
 
   .container {
-    max-width: 1150px;
+    max-width: 1400px;
   }
 
   /**
@@ -1064,4 +893,7 @@ thead > tr > th{
 table {
   --bs-table-bg: var(--black_01) !important;
   /* --bs-table-striped-bg: var(--gray_01) !important; */
+}
+.divButtons {
+  align-self: end;
 }

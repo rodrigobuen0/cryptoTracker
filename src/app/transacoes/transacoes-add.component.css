@@ -2,3 +2,35 @@
     margin: 1em !important;
     border: none !important;
 }
+.input-wrapper {
+    position: relative;
+  }
+  
+  .moeda-options {
+    position: absolute;
+    top: calc(100% + 5px); /* Posiciona o menu suspenso diretamente abaixo do campo de entrada */
+    left: 0;
+    width: 100%; /* Define a largura igual ao campo de entrada */
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .moeda-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .moeda-options ul li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .moeda-options ul li:hover {
+    background-color: #f0f0f0;
+  }
+  

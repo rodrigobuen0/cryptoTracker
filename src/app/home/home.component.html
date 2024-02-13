@@ -1,5 +1,29 @@
-<div class="text-end">
-    <button (click)="modalAddTransacao()" class="btn btn-success">Nova Compra</button>
+
+<div class="row">
+<div class="col-lg-6 d-flex">
+<div class="card">
+    <p class="card-title">Aportes</p>
+    <data class="card-price">{{vlrAporte | currency}}</data>
+</div>
+<div class="card">
+    <p class="card-title">Saldo</p>
+    <data class="card-price">{{vlrSaldo | currency}}</data>
+</div>
+<div class="card">
+    <p class="card-title">Lucro</p>
+    <data class="card-price" [ngClass]="{'verde': (vlrSaldo! - vlrAporte!) >= 0, 'vermelho' : (vlrSaldo! - vlrAporte!) < 0}">{{ (vlrSaldo! - vlrAporte!) | currency }}</data>
+</div>
+<div class="card">
+    <p class="card-title">% Lucro</p>
+    <data class="card-price" [ngClass]="{'verde': ((vlrSaldo! - vlrAporte!) / vlrAporte! * 100) >= 0, 'vermelho': ((vlrSaldo! - vlrAporte!) / vlrAporte! * 100) < 0}">{{ ((vlrSaldo! - vlrAporte!) / vlrAporte! * 100) | number:'1.2-2' }}%</data>
+</div>
+</div>
+<div class="col-lg-6 divButtons d-flex justify-content-end">
+    <button (click)="modalAddTransacao()" class="btn btn-success fs-6">
+        <span class="material-symbols-rounded icon fs-4">add</span>
+        Nova Compra
+    </button>
+</div>
 
 </div>
 <div class="mt-4">
