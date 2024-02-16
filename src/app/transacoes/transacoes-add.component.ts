@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 export class TransacoesAddComponent implements OnInit {
   transacoesForm!: FormGroup;
   moedas: { id: number, name: string, price: number }[] = []; // Array para armazenar os IDs, nomes e preços das moedas
+  today = new Date().toISOString().substr(0, 10);
 
   constructor(
     private transacoesService: TransacoesService,
@@ -27,24 +28,22 @@ export class TransacoesAddComponent implements OnInit {
 
   ngOnInit() {
     this.transacoesForm = this.formBuilder.group({
+      idMoeda: [null],
       moeda: [''],
       precoMoeda: [''],
-      dataAporte: [''],
+      dataAporte: [this.today],
       valorAportado: [''],
       TaxaCorretora: [''],
       QtdMoedas: [''],
     });
-    
   }
 
   searchMoedas(event: Event) {
     const keyword = (event.target as HTMLInputElement)?.value;
     if (keyword !== undefined) {
-      // Chame sua função de pesquisa com a palavra-chave
       if (keyword.trim() === '') {
-        // Se o campo de pesquisa estiver vazio, limpe a lista de moedas
         this.moedas = [];
-        return; // Não chame a API
+        return;
       }
       this.pricesService.getPrecosPesquisa(keyword).subscribe(response => {
         this.moedas = response.map((asset: AssetsData) => ({
@@ -58,13 +57,50 @@ export class TransacoesAddComponent implements OnInit {
   
   selectMoeda(moeda: { id: number, name: string, price: number }) {
     this.transacoesForm.get('moeda')?.setValue(moeda.name);
-    // Você pode fazer mais ações aqui se necessário
-    this.moedas = []; // Limpar a lista de moedas após a seleção
+    this.moedas = [];
     this.transacoesForm.patchValue({
-      precoMoeda: moeda.price
+      precoMoeda: this.formatarPreco(moeda.price),
+      idMoeda: moeda.id
     });
+    this.transacoesForm.patchValue({ QtdMoedas: null, valorAportado: null, TaxaCorretora: null, dataAporte: this.today});
+
   }
 
+  formatarPreco(price: number): string {
+    const precoFormatado = price.toFixed(10);
+    const partesPreco = precoFormatado.split('.');
+    const parteDecimal = partesPreco[1];
+
+    if (parteDecimal && parteDecimal.length > 4 && parteDecimal.slice(0, 4) !== '0000') {
+      return `${partesPreco[0]}.${parteDecimal.slice(0, 4)}`;
+    } else {
+      return parseFloat(precoFormatado).toFixed(10);
+    }
+  }
+
+  calcularQuantidadeMoedas() {
+    const valorAportado = parseFloat(this.transacoesForm.get('valorAportado')?.value);
+    const precoMoeda = parseFloat(this.transacoesForm.get('precoMoeda')?.value);
+  
+    if (!isNaN(valorAportado) && !isNaN(precoMoeda) && precoMoeda !== 0) {
+      const quantidadeMoedas = valorAportado / precoMoeda;
+      this.transacoesForm.patchValue({ QtdMoedas: quantidadeMoedas.toFixed(10) });
+    }else{
+      this.transacoesForm.patchValue({ QtdMoedas: null});
+    }
+  }
+  
+  calcularValorAportado() {
+    const quantidadeMoedas = parseFloat(this.transacoesForm.get('QtdMoedas')?.value);
+    const precoMoeda = parseFloat(this.transacoesForm.get('precoMoeda')?.value);
+  
+    if (!isNaN(quantidadeMoedas) && !isNaN(precoMoeda) && quantidadeMoedas !== 0) {
+      const valorAportado = quantidadeMoedas * precoMoeda;
+      this.transacoesForm.patchValue({ valorAportado: valorAportado.toFixed(10) });
+    }else{
+      this.transacoesForm.patchValue({ valorAportado: null});
+    }
+  }
   onSubmit() {
     console.log('Your form data : ', this.transacoesForm.value);
   }

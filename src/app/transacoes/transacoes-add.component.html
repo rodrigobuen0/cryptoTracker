@@ -1,7 +1,7 @@
-<!-- transacoes-add.component.html -->
-
 <div class="card">
-  <h1>Nova Transação</h1>
+  <div class="card-header">
+    <h3>Nova Transação</h3>
+  </div>
   <div class="card-body">
     <div class="table-responsive">
       <form [formGroup]="transacoesForm" (ngSubmit)="onSubmit()">
@@ -19,7 +19,7 @@
             <div class="moeda-options" *ngIf="moedas.length > 0">
               <ul>
                 <li *ngFor="let moeda of moedas" (click)="selectMoeda(moeda)">
-                  {{ moeda.name }} - Preço: {{ moeda.price }}
+                  {{ moeda.name }} - Preço: ${{ formatarPreco(moeda.price) }}
                 </li>
               </ul>
             </div>
@@ -34,19 +34,21 @@
             placeholder="Preço da Moeda"
             formControlName="precoMoeda"
             class="form-control"
+            appNumbersOnly
           />
         </div>
         <br />
         <div class="form-group">
           <label class="control-label">Data do Aporte</label>
           <input
-            type="text"
-            name="dataAporte"
-            placeholder="Data do Aporte"
-            formControlName="dataAporte"
-            class="form-control"
+              type="date"
+              name="dataAporte"
+              placeholder="Data do Aporte"
+              formControlName="dataAporte"
+              class="form-control"
           />
-        </div>
+      </div>
+      
         <br />
         <div class="form-group">
           <label class="control-label">Valor Aportado</label>
@@ -56,6 +58,9 @@
             placeholder="Valor Aportado"
             formControlName="valorAportado"
             class="form-control"
+            (input)="calcularQuantidadeMoedas()"
+            appNumbersOnly
+            [decimalPlaces]="4"
           />
         </div>
         <br />
@@ -67,6 +72,7 @@
             placeholder="Taxa da Corretora"
             formControlName="TaxaCorretora"
             class="form-control"
+            appNumbersOnly
           />
         </div>
         <br />
@@ -78,10 +84,13 @@
             placeholder="Quantidade de Moedas"
             formControlName="QtdMoedas"
             class="form-control"
+            (input)="calcularValorAportado()"
+            appNumbersOnly
+            [decimalPlaces]="10"
           />
         </div>
         <br />
-        <input type="submit" value="Enviar" />
+        <input type="submit" class="btn btn-success fs-6 float-end" value="Salvar" />
       </form>
     </div>
   </div>

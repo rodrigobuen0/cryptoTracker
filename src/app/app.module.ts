@@ -13,6 +13,7 @@ import { TransacoesComponent } from './transacoes/transacoes.component';
 import { TransacoesAddComponent } from './transacoes/transacoes-add.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
+import { NumbersOnlyDirective } from './_helpers/numbers-only.directive'; // Importe a diretiva aqui
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
         HomeComponent,
         LoginComponent,
         TransacoesComponent,
-        TransacoesAddComponent
+        TransacoesAddComponent,
+        NumbersOnlyDirective
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
