@@ -14,4 +14,7 @@ export class PricesService {
     getPrecosPesquisa(asset: string) {
         return this.http.get<AssetsData[]>(`${environment.apiUrl}/Precos/${asset}`);
     }
+    getPrecoAsset(asset: number) {
+        return this.http.get<AssetsData>(`${environment.apiUrl}/Precos/asset/${asset}`);
+    }
 }

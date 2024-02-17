@@ -1,0 +1,9 @@
+.card {
+  /* margin: 1em !important; */
+  border: none !important;
+  color: var(--white);
+}
+
+.card-header{
+  border-bottom: var(--bs-card-border-width) solid var(--cool-gray);
+}

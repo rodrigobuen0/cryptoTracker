@@ -1,13 +1,27 @@
-<div class="card mt-4">
-    <div class="card-body">
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <div class="table-responsive">
+<div class="row">
+    <div class="col-lg-6 d-flex">
+    </div>
+    <div class="col-lg-6 divButtons d-flex justify-content-end">
 
-        <table *ngIf="transacoes" class="table table-striped">
+        <button (click)="openVendaModal()" class="btn btn-danger fs-6">
+            <span class="material-symbols-rounded icon fs-4">remove</span>
+            Retirada</button>
+
+    </div>
+    
+    </div>
+    <br/>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+
+        <div class="table-responsive tableStyle">
+            <table *ngIf="transacoes" class="table table-dark">
             <thead>
                 <tr>
                     <th scope="col">
                         Nome
+                    </th>
+                    <th scope="col">
+                        Data
                     </th>
                     <th scope="col">
                         Quantidade Total
@@ -20,11 +34,10 @@
             <tbody>
                 <tr *ngFor="let transacao of transacoes">
                     <td>{{transacao.ativos?.simbolo}} - {{transacao.ativos?.nomeAtivo}}</td>
+                    <td>{{transacao.dataTransacao}}</td>
                     <td>{{transacao.quantidade}}</td>
                     <td>{{transacao.precoPorUnidade}}</td>
                 </tr>
             </tbody>
         </table>
         </div>
-    </div>
-</div>

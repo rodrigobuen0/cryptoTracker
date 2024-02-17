@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TransacoesService } from '../_services/transacoes.service';
 import { AssetsData, TipoTransacao, Transacao, TransacaoDto } from '../_models';
 import { ActivatedRoute } from '@angular/router';
@@ -8,12 +8,12 @@ import { PricesService } from '../_services/prices.service';
 
 @Component({
   selector: 'app-transacoes',
-  templateUrl: './transacoes-add.component.html',
-  styleUrl: './transacoes-add.component.css',
+  templateUrl: './transacoes-add-venda.component.html',
+  styleUrl: './transacoes-add-venda.component.css',
 })
-export class TransacoesAddComponent implements OnInit {
+export class TransacoesAddVendaComponent implements OnInit {
+  @Input() assetId!: string;
   transacoesForm!: FormGroup;
-  moedas: { id: number, name: string, price: number }[] = []; // Array para armazenar os IDs, nomes e preços das moedas
   today = new Date().toISOString().substr(0, 10);
 
   constructor(
@@ -27,7 +27,7 @@ export class TransacoesAddComponent implements OnInit {
 
   ngOnInit() {
     this.transacoesForm = this.formBuilder.group({
-      idMoeda: [null],
+      idMoeda: [this.assetId],
       moeda: [''],
       precoMoeda: [''],
       dataAporte: [this.today],
@@ -35,36 +35,15 @@ export class TransacoesAddComponent implements OnInit {
       TaxaCorretora: [''],
       QtdMoedas: [''],
     });
-  }
 
-  searchMoedas(event: Event) {
-    const keyword = (event.target as HTMLInputElement)?.value;
-    if (keyword !== undefined) {
-      if (keyword.trim() === '') {
-        this.moedas = [];
-        return;
-      }
-      this.pricesService.getPrecosPesquisa(keyword).subscribe(response => {
-        this.moedas = response.map((asset: AssetsData) => ({
-          id: asset.id,
-          name: asset.name,
-          price: asset.quote.usd.price
-        }));
+    this.pricesService.getPrecoAsset(parseInt(this.assetId)).subscribe(response => {
+      this.transacoesForm.patchValue({
+        idMoeda: response.id,
+        moeda: response.name,
+        precoMoeda: this.formatarPreco(response.quote.usd.price),
       });
-    }
-  }
-  
-  selectMoeda(moeda: { id: number, name: string, price: number }) {
-    this.transacoesForm.get('moeda')?.setValue(moeda.name);
-    this.moedas = [];
-    this.transacoesForm.patchValue({
-      precoMoeda: this.formatarPreco(moeda.price),
-      idMoeda: moeda.id
     });
-    this.transacoesForm.patchValue({ QtdMoedas: null, valorAportado: null, TaxaCorretora: null, dataAporte: this.today});
-
   }
-
   formatarPreco(price: number): string {
     const precoFormatado = price.toFixed(10);
     const partesPreco = precoFormatado.split('.');
@@ -109,16 +88,16 @@ export class TransacoesAddComponent implements OnInit {
       transactionID: 0, // Deixe como 0 para ser preenchido pelo servidor
       portfolioID: 0, // Deixe como 0 para ser preenchido pelo servidor
       assetID: this.transacoesForm.value.idMoeda,
-      tipo: TipoTransacao.Compra, // Ou defina o tipo de transação apropriado
+      tipo: TipoTransacao.Venda, // Ou defina o tipo de transação apropriado
       quantidade: parseFloat(this.transacoesForm.value.QtdMoedas),
       precoPorUnidade: parseFloat(this.transacoesForm.value.precoMoeda),
       custo: parseFloat(this.transacoesForm.value.valorAportado),
-      taxa: parseFloat(this.transacoesForm.value.TaxaCorretora),
+      taxa: 0,
       dataTransacao: new Date(this.transacoesForm.value.dataAporte)
     };
 
     // Envie o objeto Transacoes para o serviço
-    this.transacoesService.addTransacao(transacaoData)
+    this.transacoesService.addTransacaoVenda(transacaoData)
       .subscribe(
         response => {
           // Lógica após a resposta bem-sucedida

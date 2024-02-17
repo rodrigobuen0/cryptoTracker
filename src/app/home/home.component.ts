@@ -8,7 +8,8 @@ import { TransacoesAddComponent } from '../transacoes/transacoes-add.component';
 import { PricesService } from '../_services/prices.service';
 import { concatMap, first } from 'rxjs/operators';
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({ templateUrl: 'home.component.html',
+  styleUrl: './home.component.css', })
 export class HomeComponent implements OnInit {
   loading = false;
   portfolio?: Portfolio[];
@@ -26,6 +27,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+   this.carregaListaAtivos();
+  }
+  carregaListaAtivos(){
     this.loading = true;
     this.pricesService.getAll().pipe(
       first(),
@@ -51,6 +55,12 @@ export class HomeComponent implements OnInit {
   }
   modalAddTransacao() {
     this.modalRef = this.modalService.show(TransacoesAddComponent);
+    if (this.modalRef) {
+      this.modalRef.onHide?.subscribe(() => {
+        console.log('Modal fechado');
+        this.carregaListaAtivos();
+      });
+    }
   }
   getPriceById(id: number): number {
     const ativo = this.prices?.find(a => a.id === id);

@@ -21,7 +21,7 @@
 <div class="col-lg-6 divButtons d-flex justify-content-end">
     <button (click)="modalAddTransacao()" class="btn btn-success fs-6">
         <span class="material-symbols-rounded icon fs-4">add</span>
-        Nova Compra
+        Aporte
     </button>
 </div>
 
@@ -32,6 +32,7 @@
         <table *ngIf="portfolio" class="table table-dark">
             <thead>
                 <tr>
+                    <th></th>
                     <th scope="col">
                         Nome
                     </th>
@@ -42,7 +43,7 @@
                         Saldo
                     </th>
                     <th scope="col">
-                        Custo Total
+                        Aportes
                     </th>
                     <th scope="col">
                         Preço Médio
@@ -60,7 +61,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let ativo of portfolio" (click)="abrirTransacoes(ativo.ativoCripto?.assetID!)">
-                    <td>{{ativo.ativoCripto?.simbolo}} - {{ativo.ativoCripto?.nomeAtivo}}</td>
+                    <td class="image-cell">
+                        <img [src]="'https://s2.coinmarketcap.com/static/img/coins/64x64/' + (ativo.ativoCripto?.assetID) + '.png'" class="center-image">
+                    </td>                    <td>{{ativo.ativoCripto?.simbolo}} - {{ativo.ativoCripto?.nomeAtivo}}</td>
                     <td>{{ativo.quantidadeTotal}}</td>
                     <td>{{(ativo.precoAtual! * ativo.quantidadeTotal!) | currency}}</td>
                     <td>{{ativo.custoTotal | currency }}</td>

@@ -11,4 +11,10 @@ export class TransacoesService {
     getAllAsset(assetId: string) {
         return this.http.get<Transacao[]>(`${environment.apiUrl}/transacoes/asset/${assetId}`);
     }
+    addTransacao(transacaoData: any) {
+        return this.http.post<any>(`${environment.apiUrl}/transacoes`, transacaoData);
+    }
+    addTransacaoVenda(transacaoData: any) {
+        return this.http.post<any>(`${environment.apiUrl}/transacoes/venda`, transacaoData);
+    }
 }

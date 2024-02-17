@@ -1,0 +1,9 @@
+.image-cell {
+    text-align: center;
+}
+
+.center-image {
+    width: 1.5rem;
+    display: block;
+    margin: 0 auto;
+}

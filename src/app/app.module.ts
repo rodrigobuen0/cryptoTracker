@@ -14,6 +14,7 @@ import { TransacoesAddComponent } from './transacoes/transacoes-add.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
 import { NumbersOnlyDirective } from './_helpers/numbers-only.directive'; // Importe a diretiva aqui
+import { TransacoesAddVendaComponent } from './transacoes/transacoes-add-venda.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { NumbersOnlyDirective } from './_helpers/numbers-only.directive'; // Imp
         LoginComponent,
         TransacoesComponent,
         TransacoesAddComponent,
+        TransacoesAddVendaComponent,
         NumbersOnlyDirective
     ],
     providers: [
